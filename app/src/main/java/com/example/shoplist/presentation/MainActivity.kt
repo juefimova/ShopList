@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
 
 // ЧТО ТУТ ТВОРИТСЯ
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.shopList.observe(this){
+
+        viewModel.shopList.observe(this) {
             Log.d("MainActivityTest", it.toString())
         }
 
-        viewModel.getShopList() //РАЗОБРАТЬСЯ С ЭТИМ
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
