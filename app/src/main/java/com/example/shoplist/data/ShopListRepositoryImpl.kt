@@ -7,9 +7,10 @@ import com.example.shoplist.domain.ShopListRepository
 
 object ShopListRepositoryImpl: ShopListRepository {
 
-    //LiveData что происходит
+
     private val shopListLD = MutableLiveData<List<ShopItem>>()
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf<ShopItem>(Comparator<ShopItem> { p0, p1 -> p0.id.compareTo(p1.id)})
+    //мы указали что сортируем по id
 
     private var autoIncrementID = 0
 //ЗДЕСЬ РАЗОБРАТЬСЯ
@@ -35,7 +36,7 @@ object ShopListRepositoryImpl: ShopListRepository {
     }
 
     override fun editShopItem(shopItem: ShopItem) {
-        val oldSHopElement = shopList.get(shopItem.id)
+        val oldSHopElement = getShopItemById(shopItem.id) //get(shopItem.id)
         shopList.remove(oldSHopElement)
         addShopItem(shopItem) //тут у нас и так addShopItem wiec не нужен updateList()
     }
